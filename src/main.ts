@@ -9,7 +9,7 @@ let currentPopup: any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     WA.room.onEnterLayer('website').subscribe(async () => {
-        await WA.nav.openCoWebSite('http://localhost:8081/');``
+        await WA.nav.openCoWebSite('http://localhost:8081/');
         console.log(WA.player);
     }) 
 
