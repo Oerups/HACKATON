@@ -13,6 +13,10 @@ WA.onInit().then(() => {
         console.log(WA.player);
     }) 
 
+    WA.room.onLeaveLayer('website').subscribe(() => {
+        WA.nav.closeCoWebSite();
+    })
+
     WA.room.onEnterLayer('zone-a').subscribe(() => {
         WA.chat.sendChatMessage("zone A", "Brigitte Bardot");
     })     
