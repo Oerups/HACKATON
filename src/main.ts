@@ -11,13 +11,26 @@ WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ',WA.player.tags)
 
-    WA.room.onEnterLayer('clockZone').subscribe(() => {
-        const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes();
-        currentPopup = WA.ui.openPopup("clockPopup","It's " + time,[]);
+    // WA.room.onEnterLayer('website').subscribe(() => {
+    //     WA.nav.openTab('https://www.google.com');
+    // });
+
+    WA.room.onEnterLayer('zone-a').subscribe(() => {
+        WA.chat.sendChatMessage("zone A", "Brigitte Bardot");
     })
 
-    WA.room.onLeaveLayer('clockZone').subscribe(closePopUp)
+    WA.room.onEnterLayer('zone-b').subscribe(() => {
+        WA.chat.sendChatMessage("zone B", "Steven Spielberg");
+    })
+
+    WA.room.onEnterLayer('zone-c').subscribe(() => {
+        WA.chat.sendChatMessage("zone C", "Mickael Younes");
+    })
+
+    WA.room.onEnterLayer('zone-d').subscribe(() => {
+        WA.chat.sendChatMessage("zone D", "Ton père l'enculé");
+    })
+
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
