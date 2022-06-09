@@ -12,7 +12,7 @@ let currentPopup: any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     const socket = KapouteService.connect();
-    const code = "R41N9ME";
+    const code = "R2DRW2C";
     const answers = {
         zone_a: "",
         zone_b: "",
@@ -20,6 +20,12 @@ WA.onInit().then(() => {
         zone_d: ""
     }
     let questionId = "";
+    const answerPopUp = {
+        popup: null,
+        answered: true
+    };
+
+    GameService.goCenter(WA);
 
     socket.on("GAME", (step: any) => {
         GameService.goCenter(WA);
@@ -29,34 +35,34 @@ WA.onInit().then(() => {
             answers.zone_c = step.answers[2]._id;
             answers.zone_d = step.answers[3]._id;
             questionId = step._id;
+            answerPopUp.answered = false;
             console.log(answers)
         }
     });
 
     WA.room.onEnterLayer('website').subscribe(async () => {
-        await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}`);
+        await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}/userId/${WA.player.id}`);
         GameService.goCenter(WA);
     }) 
 
     WA.room.onEnterLayer('zone-a').subscribe(async () => {
-         // send answer to server
-         // answers.zone_a
         KapouteService.sendAnswer(WA.player.id, answers.zone_a, questionId, code);
+        GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-b').subscribe(async () => {
-         // send answer to server
-        GameService.goCenter(WA);
+        KapouteService.sendAnswer(WA.player.id, answers.zone_b, questionId, code);
+        GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-c').subscribe(async () => {
-         // send answer to server
-        GameService.goCenter(WA);
+        KapouteService.sendAnswer(WA.player.id, answers.zone_c, questionId, code);
+        GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-d').subscribe(async () => {
-         // send answer to server
-        GameService.goCenter(WA);
+        KapouteService.sendAnswer(WA.player.id, answers.zone_d, questionId, code);
+        GameService.handlePopup(answerPopUp);
     })
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure

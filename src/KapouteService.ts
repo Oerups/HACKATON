@@ -10,7 +10,7 @@ const KapouteService = {
         return socket;
     },
     sendAnswer: async (playerId: string | undefined, answerId: string, questionId: string, roomCode: string) => {
-        const res = await fetch(`https://localhost:8081/room/${roomCode}/answer`, {
+        const res = await fetch(`http://localhost:8000/room/${roomCode}/answer`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

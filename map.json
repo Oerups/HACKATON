@@ -408,15 +408,15 @@
          "name":"floorLayer",
          "objects":[
                 {
-                 "height":61.6672851518306,
-                 "id":12,
-                 "name":"clockPopup",
+                 "height":202.385739177054,
+                 "id":13,
+                 "name":"answerPopUp",
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":93.7162209047986,
-                 "x":483.919325398621,
-                 "y":14.0269116471316
+                 "width":194.34392172631,
+                 "x":494.571773220748,
+                 "y":174.239378099451
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -425,7 +425,7 @@
          "y":0
         }],
  "nextlayerid":57,
- "nextobjectid":13,
+ "nextobjectid":15,
  "orientation":"orthogonal",
  "properties":[
         {

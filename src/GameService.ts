@@ -5,6 +5,15 @@ const GameService = {
         WA.controls.disablePlayerControls();
         WA.player.moveTo(599, 257, 10);
         WA.controls.restorePlayerControls();
+    },
+    handlePopup: (answerPopUp: Object) => {
+        if (!answerPopUp.answered) {
+            answerPopUp.popup = WA.ui.openPopup("answerPopUp", `Votre réponse a été envoyée.`, []);
+            answerPopUp.answered = true;
+            setTimeout(() => {
+                answerPopUp.popup.close();
+            }, 2000);
+        }
     }
 }
 
