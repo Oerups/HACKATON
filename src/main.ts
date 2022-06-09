@@ -37,8 +37,25 @@ WA.onInit().then(() => {
         GameService.goCenter(WA);
     }) 
 
+    WA.room.onEnterLayer('zone-a').subscribe(async () => {
+         // send answer to server
+        GameService.goCenter(WA);
+    })
 
-   
+    WA.room.onEnterLayer('zone-b').subscribe(async () => {
+         // send answer to server
+        GameService.goCenter(WA);
+    })
+
+    WA.room.onEnterLayer('zone-c').subscribe(async () => {
+         // send answer to server
+        GameService.goCenter(WA);
+    })
+
+    WA.room.onEnterLayer('zone-d').subscribe(async () => {
+         // send answer to server
+        GameService.goCenter(WA);
+    })
 
     // The line below bootstraps the Scripting API Extra library that adds a number of advanced properties/features to WorkAdventure
     bootstrapExtra().then(() => {
