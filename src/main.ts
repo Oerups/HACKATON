@@ -12,13 +12,14 @@ let currentPopup: any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     const socket = KapouteService.connect();
-    const code = "R1Q29FN";
+    const code = "R41N9ME";
     const answers = {
-        zone_a: null,
-        zone_b: null,
-        zone_c: null,
-        zone_d: null
+        zone_a: "",
+        zone_b: "",
+        zone_c: "",
+        zone_d: ""
     }
+    let questionId = "";
 
     socket.on("GAME", (step: any) => {
         GameService.goCenter(WA);
@@ -27,19 +28,20 @@ WA.onInit().then(() => {
             answers.zone_b = step.answers[1]._id;
             answers.zone_c = step.answers[2]._id;
             answers.zone_d = step.answers[3]._id;
-
+            questionId = step._id;
             console.log(answers)
         }
     });
 
     WA.room.onEnterLayer('website').subscribe(async () => {
-        await WA.nav.openCoWebSite(`http://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}`);
+        await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}`);
         GameService.goCenter(WA);
     }) 
 
     WA.room.onEnterLayer('zone-a').subscribe(async () => {
          // send answer to server
-        GameService.goCenter(WA);
+         // answers.zone_a
+        KapouteService.sendAnswer(WA.player.id, answers.zone_a, questionId, code);
     })
 
     WA.room.onEnterLayer('zone-b').subscribe(async () => {

@@ -9,8 +9,20 @@ const KapouteService = {
         console.log(socket);
         return socket;
     },
-    sendAnswer: (answer: any) => {
-
+    sendAnswer: async (playerId: string | undefined, answerId: string, questionId: string, roomCode: string) => {
+        const res = await fetch(`https://localhost:8081/room/${roomCode}/answer`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: playerId,
+                    answer: answerId,
+                    question: questionId
+            })
+        });
+        
+        console.log(res);
     },
 }
 
