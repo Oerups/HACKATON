@@ -3,8 +3,9 @@ import { WorkAdventureApi } from "@workadventure/iframe-api-typings";
 const GameService = {
     goCenter: (WA: WorkAdventureApi) => {
         WA.controls.disablePlayerControls();
-        WA.player.moveTo(599, 257, 10);
-        WA.controls.restorePlayerControls();
+        WA.player.moveTo(599, 257, 10).then(() => {
+            WA.controls.restorePlayerControls();
+        });
     },
     handlePopup: (answerPopUp: Object) => {
         if (!answerPopUp.answered) {
