@@ -20,14 +20,18 @@ const GameService = {
         if(type === "trueFalse") {
             WA.room.hideLayer("zone-c");
             WA.room.hideLayer("zone-d");
+            return ['zone-a', 'zone-b'];
         } else {
+            let layers:any = [];
             answers.forEach((answer: any) => {
                 if(answer.content != "") {
                     WA.room.showLayer(answer.name);
+                    layers.push(answer.name);
                 } else {
                     WA.room.hideLayer(answer.name);
                 }
             });
+            return layers;
         }
     },
     displayAllLayers: () => {
@@ -50,7 +54,11 @@ const GameService = {
         }
 
         return formattedAnswers;
-    }
+    },
+    getCode: () => {
+        const code = WA.state.loadVariable('code');
+        return code;
+    },
 }
 
 export default GameService;
