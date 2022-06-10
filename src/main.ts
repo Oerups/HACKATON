@@ -42,7 +42,8 @@ WA.onInit().then(() => {
     WA.room.onEnterLayer('website').subscribe(async () => {
         currentLayer = "website";
         code = GameService.getCode();
-        if (code == undefined || code == null) {
+        
+        if (code == "") {
             WA.ui.openPopup("codePopup", 'Veuillez renseigner le code de la partie (Menu > Configure the room) ou demandez à un admin de le faire !', [{
                 label: "Close",
                 className: "primary",
