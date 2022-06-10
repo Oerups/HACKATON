@@ -12,13 +12,9 @@ let currentPopup: any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     const socket = KapouteService.connect();
-    const code = "R2DRW2C";
-    const answers = {
-        zone_a: "",
-        zone_b: "",
-        zone_c: "",
-        zone_d: ""
-    }
+    const code = "RWQ5L1B";
+    let answers: any = [];
+
     let questionId = "";
     const answerPopUp = {
         popup: null,
@@ -29,14 +25,16 @@ WA.onInit().then(() => {
 
     socket.on("GAME", (step: any) => {
         GameService.goCenter(WA);
+
         if (step.state === "QUESTION") {
-            answers.zone_a = step.answers[0]._id;
-            answers.zone_b = step.answers[1]._id;
-            answers.zone_c = step.answers[2]._id;
-            answers.zone_d = step.answers[3]._id;
+            answers = GameService.defineAnswers(step.answers);
             questionId = step._id;
+            
+            GameService.displayLayers(WA, step.type, answers);
+
             answerPopUp.answered = false;
-            console.log(answers)
+        } else {
+            GameService.displayAllLayers();
         }
     });
 
@@ -46,22 +44,22 @@ WA.onInit().then(() => {
     }) 
 
     WA.room.onEnterLayer('zone-a').subscribe(async () => {
-        KapouteService.sendAnswer(WA.player.id, answers.zone_a, questionId, code);
+        KapouteService.sendAnswer(WA.player.id, answers[0].id, questionId, code);
         GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-b').subscribe(async () => {
-        KapouteService.sendAnswer(WA.player.id, answers.zone_b, questionId, code);
+        KapouteService.sendAnswer(WA.player.id, answers[1].id, questionId, code);
         GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-c').subscribe(async () => {
-        KapouteService.sendAnswer(WA.player.id, answers.zone_c, questionId, code);
+        KapouteService.sendAnswer(WA.player.id, answers[2].id, questionId, code);
         GameService.handlePopup(answerPopUp);
     })
 
     WA.room.onEnterLayer('zone-d').subscribe(async () => {
-        KapouteService.sendAnswer(WA.player.id, answers.zone_d, questionId, code);
+        KapouteService.sendAnswer(WA.player.id, answers[3].id, questionId, code);
         GameService.handlePopup(answerPopUp);
     })
 
