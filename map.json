@@ -322,6 +322,12 @@
          "id":50,
          "name":"zone-a",
          "opacity":1,
+         "properties":[
+                {
+                 "name":"visible",
+                 "type":"bool",
+                 "value":false
+                }],
          "type":"tilelayer",
          "visible":true,
          "width":31,
@@ -462,17 +468,6 @@
          "name":"floorLayer",
          "objects":[
                 {
-                 "height":202.385739177054,
-                 "id":13,
-                 "name":"answerPopUp",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":93.7162209047986,
-                 "x":483.919325398621,
-                 "y":14.0269116471316
-                }, 
-                {
                  "height":93.1346460883449,
                  "id":24,
                  "name":"codePopup",
@@ -493,6 +488,17 @@
                  "width":287.38690792975,
                  "x":226.184140500266,
                  "y":306.013837147419
+                }, 
+                {
+                 "height":74.5077168706759,
+                 "id":28,
+                 "name":"answerPopUp",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":151.67642362959,
+                 "x":510.910058541778,
+                 "y":42.5758382118148
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -530,7 +536,7 @@
          "y":0
         }],
  "nextlayerid":64,
- "nextobjectid":26,
+ "nextobjectid":29,
  "orientation":"orthogonal",
  "properties":[
         {
