@@ -12,7 +12,7 @@ let currentPopup: any = undefined;
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     const socket = KapouteService.connect();
-    const code = "RWQ5L1B";
+    const code = "R0MLQWT";
     let answers: any = [];
 
     let questionId = "";
@@ -30,7 +30,7 @@ WA.onInit().then(() => {
             answers = GameService.defineAnswers(step.answers);
             questionId = step._id;
             
-            GameService.displayLayers(WA, step.type, answers);
+            GameService.displayLayers(step.type, answers);
 
             answerPopUp.answered = false;
         } else {

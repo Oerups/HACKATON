@@ -16,7 +16,7 @@ const GameService = {
             }, 2000);
         }
     },
-    displayLayers: (WA: WorkAdventureApi, type: string, answers: any) => {
+    displayLayers: (type: string, answers: any) => {
         if(type === "trueFalse") {
             WA.room.hideLayer("zone-c");
             WA.room.hideLayer("zone-d");
