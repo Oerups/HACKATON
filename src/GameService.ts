@@ -37,7 +37,7 @@ const GameService = {
         WA.room.showLayer("zone-d");
     },
     defineAnswers: (answers: any) => {
-        const formatedAnswers = [
+        const formattedAnswers = [
             {id: "", name: "zone-a", content: ""},
             {id: "", name: "zone-b", content: ""},
             {id: "", name: "zone-c", content: ""},
@@ -45,11 +45,11 @@ const GameService = {
         ];
 
         for(let i = 0; i < answers.length; i++) {
-            formatedAnswers[i].id = answers[i]._id;
-            formatedAnswers[i].content = answers[i].content;
+            formattedAnswers[i].id = answers[i]._id;
+            formattedAnswers[i].content = answers[i].content;
         }
 
-        return formatedAnswers;
+        return formattedAnswers;
     }
 }
 
