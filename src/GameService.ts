@@ -50,7 +50,11 @@ const GameService = {
         }
 
         return formattedAnswers;
-    }
+    },
+    getCode: () => {
+        const code = WA.state.loadVariable('code');
+        return code;
+    },
 }
 
 export default GameService;

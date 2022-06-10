@@ -7,12 +7,11 @@ import GameService from "./GameService";
 console.log('Script started successfully');
 
 let currentPopup: any = undefined;  
-
+let iframe:any = undefined;
 
 // Waiting for the API to be ready
 WA.onInit().then(() => {
     const socket = KapouteService.connect();
-    const code = "R0MLQWT";
     let answers: any = [];
 
     let questionId = "";
@@ -21,7 +20,9 @@ WA.onInit().then(() => {
         answered: true
     };
 
-    GameService.goCenter(WA);
+    let currentLayer = "";
+    let code:any = GameService.getCode();
+    
 
     socket.on("GAME", (step: any) => {
         GameService.goCenter(WA);
@@ -39,9 +40,54 @@ WA.onInit().then(() => {
     });
 
     WA.room.onEnterLayer('website').subscribe(async () => {
-        await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}/userId/${WA.player.id}`);
-        GameService.goCenter(WA);
-    }) 
+        currentLayer = "website";
+        code = GameService.getCode();
+        if (code == undefined || code == null) {
+            WA.ui.openPopup("codePopup", 'Veuillez renseigner le code de la partie (Menu > Configure the room) ou demandez à un admin de le faire !', [{
+                label: "Close",
+                className: "primary",
+                callback: (popup) => {
+                    popup.close();
+                }
+            }]);
+        } else if (iframe === undefined) {
+            iframe = await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}`);
+            GameService.goCenter(WA);
+        }
+    })
+
+    WA.room.onEnterLayer('game-entry').subscribe(async () => {
+        currentLayer = "game-entry";
+        if (iframe !== undefined) {
+            WA.controls.disablePlayerControls();
+            WA.ui.openPopup("quitGamePopup", 'Attention : si vous quittez la pièce, vous serez déconnecté de la partie en cours et ne pourrez plus la rejoindre.', [{
+                label: "Close",
+                className: "primary",
+                callback: (popup) => {
+                    popup.close();
+                }
+            }]);
+            setTimeout(() => {
+                WA.controls.restorePlayerControls();
+            }, 2000);
+        }
+    })
+
+    WA.room.onEnterLayer('game-exit').subscribe(() => {
+        if (iframe !== undefined) {
+            iframe.close();
+            iframe = undefined;
+        }
+    })
+
+    const codeSubscription = WA.state.onVariableChange('code').subscribe(async (value) => {
+        code = value;
+        if (currentLayer === "website") {
+            iframe = await WA.nav.openCoWebSite(`https://localhost:8081/iframe/${code}/username/${WA.player.name}/socketId/${socket.id}`);
+            GameService.goCenter(WA);
+            codeSubscription.unsubscribe();
+        }
+    });
 
     WA.room.onEnterLayer('zone-a').subscribe(async () => {
         KapouteService.sendAnswer(WA.player.id, answers[0].id, questionId, code);
