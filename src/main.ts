@@ -23,6 +23,7 @@ WA.onInit().then(() => {
     let currentLayer = "";
     let code:any = GameService.getCode();
     
+    WA.state.saveVariable('code', '');
 
     socket.on("GAME", (step: any) => {
         GameService.goCenter(WA);
